@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Valentine 💘</title>
 
 <style>
   body {
     margin: 0;
-    height: 100vh;
+    min-height: 100vh;
     background: linear-gradient(135deg, #ffd6e8, #fff);
     display: flex;
     justify-content: center;
@@ -17,11 +18,12 @@
 
   .card {
     background: white;
-    padding: 30px;
+    padding: 24px;
     border-radius: 20px;
     text-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    width: 320px;
+    width: 90%;
+    max-width: 360px;
   }
 
   img {
@@ -31,22 +33,22 @@
   }
 
   .question {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 20px;
   }
 
   .buttons {
     position: relative;
-    height: 50px;
-    margin-bottom: 15px;
+    height: 52px;
+    margin-bottom: 20px;
   }
 
   button {
-    padding: 10px 22px;
+    padding: 14px 26px;
     border: none;
     border-radius: 25px;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
     transition: 0.3s;
   }
@@ -59,7 +61,7 @@
   .no {
     background: #ddd;
     position: absolute;
-    left: 209px; /* старт поруч із Yes */
+    left: 250px;
     top: 0;
   }
 
@@ -67,17 +69,35 @@
     background: none;
     color: #ff4d88;
     text-decoration: underline;
-    margin-top: 10px;
+    font-size: 15px;
   }
 
   .hidden {
     display: none;
   }
 
-  /* ЕКРАН YES */
+  /* YES RESULT */
   .result img {
-    width: 200px;
+    width: 70%;
+    max-width: 220px;
     margin-bottom: 10px;
+  }
+
+  /* LETTER TEXT */
+  #letterCard p {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  /* VERY SMALL PHONES */
+  @media (max-width: 380px) {
+    .question {
+      font-size: 17px;
+    }
+
+    button {
+      font-size: 15px;
+    }
   }
 </style>
 </head>
@@ -100,7 +120,7 @@
   <button class="gift" onclick="openGift()">🎁 Ще невеликий подарунок</button>
 </div>
 
-<!-- ЕКРАН ПІСЛЯ YES -->
+<!-- YES SCREEN -->
 <div class="card hidden" id="result">
   <div class="result">
     <img src="Меми.gif" alt="Love">
@@ -108,7 +128,7 @@
   </div>
 </div>
 
-<!-- ЕКРАН ЛИСТА -->
+<!-- LETTER SCREEN -->
 <div class="card hidden" id="letterCard">
   <h2>💌 Моє кохання</h2>
 
@@ -124,7 +144,7 @@
   </p>
 </div>
 
-<!-- ЕКРАН ОЧІКУВАННЯ -->
+<!-- WAIT SCREEN -->
 <div class="card hidden" id="waitCard">
   <h2>⏳ Трохи терпіння</h2>
   <p>Почекай до 14 лютого 💖</p>
@@ -133,7 +153,7 @@
 <script>
   const noBtn = document.getElementById("noBtn");
 
-  // КНОПКА NO ТІКАЄ
+  // NO BUTTON RUNS AWAY
   noBtn.addEventListener("mouseover", () => {
     const parent = noBtn.parentElement;
     const maxX = parent.offsetWidth - noBtn.offsetWidth;
@@ -146,17 +166,15 @@
     noBtn.style.top = y + "px";
   });
 
-  // YES
   function sayYes() {
     hideAll();
     document.getElementById("result").classList.remove("hidden");
   }
 
-  // ПОДАРУНОК З ПЕРЕВІРКОЮ ДАТИ
   function openGift() {
     const today = new Date();
     const isValentine =
-      today.getMonth() === 1 && today.getDate() === 6;
+      today.getMonth() === 1 && today.getDate() === 14;
 
     hideAll();
 
@@ -167,7 +185,6 @@
     }
   }
 
-  // СХОВАТИ ВСІ ЕКРАНИ
   function hideAll() {
     document.getElementById("card").classList.add("hidden");
     document.getElementById("result").classList.add("hidden");
