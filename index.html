@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💘</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ffd6e8, #fff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+
+  .card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    width: 320px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 15px;
+    margin-bottom: 15px;
+  }
+
+  .question {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .buttons {
+    position: relative;
+    height: 50px;
+    margin-bottom: 15px;
+  }
+
+  button {
+    padding: 10px 22px;
+    border: none;
+    border-radius: 25px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .yes {
+    background: #ff4d88;
+    color: white;
+  }
+
+  .no {
+    background: #ddd;
+    position: absolute;
+    left: 209px; /* старт поруч із Yes */
+    top: 0;
+  }
+
+  .gift {
+    background: none;
+    color: #ff4d88;
+    text-decoration: underline;
+    margin-top: 10px;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* ЕКРАН YES */
+  .result img {
+    width: 200px;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ОСНОВНА СТОРІНКА -->
+<div class="card" id="card">
+
+  <img src="photo_2026-02-05_14-12-25.jpg" alt="My love">
+
+  <div class="question">
+    My love, Will you be my Valentine? 💘
+  </div>
+
+  <div class="buttons">
+    <button class="yes" onclick="sayYes()">Yes 💖</button>
+    <button class="no" id="noBtn">No 🙈</button>
+  </div>
+
+  <button class="gift" onclick="openGift()">🎁 Ще невеликий подарунок</button>
+</div>
+
+<!-- ЕКРАН ПІСЛЯ YES -->
+<div class="card hidden" id="result">
+  <div class="result">
+    <img src="Меми.gif" alt="Love">
+    <h2>Дякую, люблю тебе ❤️</h2>
+  </div>
+</div>
+
+<!-- ЕКРАН ЛИСТА -->
+<div class="card hidden" id="letterCard">
+  <h2>💌 Моє кохання</h2>
+
+  <p>
+    Одразу ще раз хочу тебе привітати з днем закоханих. І насправді ти навіть не уявляєш наскільки сильно я тебе люблю. Так можливо я не ідеальна людина але я завжди з всіх своїх сил буду робити тебе щасливою. 
+    Я дуже сильно обожнюю бачити як ти посміхаєшся і інколи мені здається, шо я могла б робити це вічність. І твоя присутність в моєму житті дає мені нові сили прокидатись зранку, робити щось нове ну і звісно тобі довго і нудно розповідати про це(сподіваюсь тобі не дуже набридаю мої довгі голосові). Кожного ранку я прокидаюсь з думкою про тебе, про те як ти, чи була ти добре вдягненна і взагалі як проводиш свій кожен день. 
+    Я дуже вдячна тобі за те що ти мене підтримуєш коли мені потрібно. І заспокоюешь мою тривогу, хоча я б сказала що вона в мене ще та сучка. Можливо я не завжди можу бути поряд з тобою, але єдине чого я хочу просто постійно це твоїх обіймів. Щоб бути з тобою і в найскладніші моменти і найкращі моменти і зробити тебе найщасливішою дівчиною. 
+    Обожнюю коли ти називаєш мене своєю зіркою, коли ти записуюш багато багато кружечків та голосових, коли ми розмовляємо по телефону, а особливо відчуття того коли ти тримаєш мене за руку. Схоже що я вже закохалась в тебе по самі вуха і так примітка(я не збираюсь тебе відпускати). Тому з нетерпінням буду чекати нашої наступної зустрічі, тому що мені дуже сильно не вистачає твого ніжного поцілунку.
+  </p>
+
+  <p>
+    Я дуже тебе люблю ❤️
+  </p>
+</div>
+
+<!-- ЕКРАН ОЧІКУВАННЯ -->
+<div class="card hidden" id="waitCard">
+  <h2>⏳ Трохи терпіння</h2>
+  <p>Почекай до 14 лютого 💖</p>
+</div>
+
+<script>
+  const noBtn = document.getElementById("noBtn");
+
+  // КНОПКА NO ТІКАЄ
+  noBtn.addEventListener("mouseover", () => {
+    const parent = noBtn.parentElement;
+    const maxX = parent.offsetWidth - noBtn.offsetWidth;
+    const maxY = parent.offsetHeight - noBtn.offsetHeight;
+
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+  });
+
+  // YES
+  function sayYes() {
+    hideAll();
+    document.getElementById("result").classList.remove("hidden");
+  }
+
+  // ПОДАРУНОК З ПЕРЕВІРКОЮ ДАТИ
+  function openGift() {
+    const today = new Date();
+    const isValentine =
+      today.getMonth() === 1 && today.getDate() === 6;
+
+    hideAll();
+
+    if (isValentine) {
+      document.getElementById("letterCard").classList.remove("hidden");
+    } else {
+      document.getElementById("waitCard").classList.remove("hidden");
+    }
+  }
+
+  // СХОВАТИ ВСІ ЕКРАНИ
+  function hideAll() {
+    document.getElementById("card").classList.add("hidden");
+    document.getElementById("result").classList.add("hidden");
+    document.getElementById("letterCard").classList.add("hidden");
+    document.getElementById("waitCard").classList.add("hidden");
+  }
+</script>
+
+</body>
+</html>
